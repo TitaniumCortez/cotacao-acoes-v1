@@ -1,6 +1,12 @@
 # cotacao-acoes
 Crawler google cotação de acoes 
 
+# descricao
+
+Realiza cotacoes de acoes pelo google chrome utilizando o selenium para realizar as buscas e obter as cotaçoes, 
+Objecto é serializado para o carregamento do historico. 
+
+
 # Dependencias
 
 - WebDriver.crome.driver = driver do google chrome
