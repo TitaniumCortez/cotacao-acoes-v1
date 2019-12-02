@@ -1,4 +1,4 @@
-package com.crawler.app.cotacao.google.schedule;
+package com.crawler.app.cotacao.schedule;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

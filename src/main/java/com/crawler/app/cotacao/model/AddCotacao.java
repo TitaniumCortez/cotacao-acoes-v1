@@ -8,7 +8,6 @@ public class AddCotacao {
 	public AddCotacao(String codigo_acao, String valor) {
 		AddCotacao.codigo_acao = codigo_acao;
 		AddCotacao.valor = valor;
-
 	}
 
 }

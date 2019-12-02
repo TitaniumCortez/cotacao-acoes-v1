@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.crawler.app.cotacao.handlersFile.HandlerFileObjectAcao;

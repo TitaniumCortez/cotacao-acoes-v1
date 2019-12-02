@@ -9,7 +9,7 @@ public class Acao implements Serializable{
 
 	private static final long serialVersionUID = -5792577008399059426L;
 	
-	String nome;
+	String codigo;
 	List<ValorDiario> valorDiario;
 
 	public void addCotacaoDiario(String valor) {
@@ -19,14 +19,14 @@ public class Acao implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Acao [nome=" + nome + ", valorDiario=" + valorDiario + "]";
+		return "Acao [codigo=" + codigo + ", valorDiario=" + valorDiario + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
 
@@ -39,10 +39,10 @@ public class Acao implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Acao other = (Acao) obj;
-		if (nome == null) {
-			if (other.nome != null)
+		if (codigo == null) {
+			if (other.codigo != null)
 				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
 	}
