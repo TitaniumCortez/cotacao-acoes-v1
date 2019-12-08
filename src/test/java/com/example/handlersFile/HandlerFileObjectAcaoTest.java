@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.crawler.app.cotacao.handlersFile.HandlerFileObjectAcao;
-import com.crawler.app.cotacao.model.Acoes;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HandlerFileObjectAcaoTest.class)
