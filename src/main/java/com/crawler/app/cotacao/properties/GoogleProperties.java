@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "google")
-public class Google {
+public class GoogleProperties {
     
     String url;
 
