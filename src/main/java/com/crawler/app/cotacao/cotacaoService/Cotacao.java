@@ -61,5 +61,5 @@ public class Cotacao {
 		}
 		log.debug("Format finish");
 		return row;
-	}
+	} 
 }
