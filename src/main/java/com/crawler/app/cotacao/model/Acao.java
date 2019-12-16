@@ -5,28 +5,56 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Acao implements Serializable{
+public class Acao implements Serializable {
 
 	private static final long serialVersionUID = -5792577008399059426L;
-	
-	String codigo;
+
+	double diferencaPercentual;
 	List<ValorDiario> valorDiario;
 
 	public void addCotacaoDiario(String valor) {
-		this.valorDiario = valorDiario != null ? valorDiario : new ArrayList<ValorDiario>(); 
+		this.valorDiario = valorDiario != null ? valorDiario : new ArrayList<ValorDiario>();
 		this.valorDiario.add(new ValorDiario(valor));
+		applyDifferencePercentual();
+	}
+
+	private void applyDifferencePercentual() {
+		if (valorDiario.size() - 1 <= 0)
+			return;
+		
+		ValorDiario antecessor, atual;
+
+		antecessor = valorDiario.get(valorDiario.size() - 1);
+		atual = valorDiario.get(valorDiario.size());
+		//52,00 - 54,00 / 54,00 * 100 = -3.70
+		this.diferencaPercentual =  calculatePercentual(antecessor.valor , atual.valor);
+
+	}
+
+	private double calculatePercentual(String antecessor, String atual) {
+		double x1, x2;
+		try {
+			x1 = new Double(antecessor);
+			x2 = new Double(atual);
+		} catch (NumberFormatException ex) {
+			return 0;
+		}
+		return x2 - x1 / x1 * 100;
 	}
 
 	@Override
 	public String toString() {
-		return "Acao [codigo=" + codigo + ", valorDiario=" + valorDiario + "]";
+		return "Acao [valorDiario=" + valorDiario + " diferencaPercentual=" + diferencaPercentual + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(diferencaPercentual);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((valorDiario == null) ? 0 : valorDiario.hashCode());
 		return result;
 	}
 
@@ -39,20 +67,22 @@ public class Acao implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Acao other = (Acao) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (Double.doubleToLongBits(diferencaPercentual) != Double.doubleToLongBits(other.diferencaPercentual))
+			return false;
+		if (valorDiario == null) {
+			if (other.valorDiario != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!valorDiario.equals(other.valorDiario))
 			return false;
 		return true;
 	}
 
 }
 
-class ValorDiario implements Serializable{
+class ValorDiario implements Serializable {
 
 	private static final long serialVersionUID = 4587974467839101675L;
-	
+
 	String valor;
 	Date date;
 
