@@ -17,14 +17,20 @@ public class GoogleApiRepository extends HttpRest {
     @Autowired
     GoogleProperties googleProperties;
 
-    public String getCotacaoCSV() throws HttpException {
-        log.info("Iniciando getCotacaoCSV");
-        byte[] csv = this.getRest(googleProperties.getUrl());
-        String data = new String(csv, 0, csv.length);
+    /**
+     * Retorna cotacao das acoes existente no
+     * google sheets 
+     * @return - <p>Object</p> da Planilha 
+     * @throws HttpException
+     */
+    public Object getCotacaoCSV() throws HttpException {
+        log.info("Iniciando getCotacaoCSV operacao api :values:batchGet");
+        String url = googleProperties.getUrl().concat("{spreadsheetId}/values:batchGet");
+        Object sheetsValues = this.getRest(url, null);
 
         log.info("Finalizado getCotacaoCSV - realizado chamada google api");
-        log.debug("Finalizado getCotacaoCSV - realizado chamada google api : {}", data);
-        return data;
-    }
+        log.debug("Finalizado getCotacaoCSV - realizado chamada google api : {}", sheetsValues);
+        return sheetsValues;
+    }    
 
 }

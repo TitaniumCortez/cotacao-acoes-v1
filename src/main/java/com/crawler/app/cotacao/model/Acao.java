@@ -1,13 +1,10 @@
 package com.crawler.app.cotacao.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Acao implements Serializable {
-
-	private static final long serialVersionUID = -5792577008399059426L;
+public class Acao {
 
 	double diferencaPercentual;
 	List<ValorDiario> valorDiario;
@@ -79,9 +76,7 @@ public class Acao implements Serializable {
 
 }
 
-class ValorDiario implements Serializable {
-
-	private static final long serialVersionUID = 4587974467839101675L;
+class ValorDiario  {
 
 	String valor;
 	Date date;
