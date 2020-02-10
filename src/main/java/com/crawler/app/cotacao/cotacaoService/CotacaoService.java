@@ -5,19 +5,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
-
 import com.crawler.app.cotacao.model.Acao;
+import com.crawler.app.cotacao.model.SpreadSheet;
 import com.crawler.app.cotacao.repositoy.GoogleApiRepository;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Component
+@Service
 public class CotacaoService {
 
 	Logger log = LogManager.getLogger(CotacaoService.class);
@@ -25,37 +24,33 @@ public class CotacaoService {
 	@Autowired
 	GoogleApiRepository googleApiRepository;
 
-	@Autowired
 	LinkedHashMap<String, Acao> acoes;
 
 	public void acoes() {
 		log.info("Iniciando Processo de cotacao");
-		try {
-			final Object sheetsValues = googleApiRepository.getCotacaoCSV();
+		ObjectMapper mapper = new ObjectMapper();
 
-			log.info("Processo de cotacao Finalizado com Sucesso");
-			csv.remove(0);
-			csv.forEach(cotar -> {
-			//	acoes.addCotacao(new AddCotacao(cotar[0], cotar[1]));
-			});
+		try {
+			final String sheetsValuesJson = googleApiRepository.getCotacao();
+			SpreadSheet sheetsValues = mapper.readValue(sheetsValuesJson, SpreadSheet.class);
 
 			
+			log.info("Processo de cotacao Finalizado com Sucesso");
+
 		} catch (final HttpException e) {
 			log.error("Processo nao executado");
 			log.catching(e);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 
-
-	private List<String[]> formatDataCsv(final String data) {
-		log.info("Format Data receive");
-		final List<String> formating = Arrays.asList(data.replaceAll("\r", "").split("\n"));
-		final List<String[]> row = new ArrayList<>();
-		for (final String columns : formating) {
-			row.add(columns.split(",", 2));
-		}
-		log.debug("Format finish");
-		return row;
-	}
 }
