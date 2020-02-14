@@ -14,7 +14,6 @@ import com.crawler.app.cotacao.model.SpreadSheet;
 import com.crawler.app.cotacao.repositoy.GoogleApiRepository;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CotacaoService {
@@ -28,11 +27,9 @@ public class CotacaoService {
 
 	public void acoes() {
 		log.info("Iniciando Processo de cotacao");
-		ObjectMapper mapper = new ObjectMapper();
 
 		try {
-			final String sheetsValuesJson = googleApiRepository.getCotacao();
-			SpreadSheet sheetsValues = mapper.readValue(sheetsValuesJson, SpreadSheet.class);
+			final SpreadSheet spreadSheet = googleApiRepository.getCotacao();
 
 			
 			log.info("Processo de cotacao Finalizado com Sucesso");
