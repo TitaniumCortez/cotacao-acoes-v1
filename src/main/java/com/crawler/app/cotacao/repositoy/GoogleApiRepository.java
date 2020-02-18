@@ -51,16 +51,43 @@ public class GoogleApiRepository extends HttpRest {
         // Adiciona os queryParams
         queryParams = new LinkedHashMap<>();
         queryParams.put("majorDimension", "COLUMNS");
-        queryParams.put("ranges", "Página1!A2:B69");
-        queryParams.put("key", "AIzaSyAqlGCc8oqPxXDKXpcLYMOHAcMxT21kigA");
+        queryParams.put("ranges", googleProperties.getRanges());
+        queryParams.put("key", googleProperties.getAppKey());
+        
+        //Request to endpoint
         String sheetsValues = this.getRest(url, urlParams, queryParams);
 
-        SpreadSheet spreadSheet =  new ObjectMapper().readValue(sheetsValues, SpreadSheet.class);
-
+        SpreadSheet spreadSheet = new ObjectMapper().readValue(sheetsValues, SpreadSheet.class);
 
         log.info("Finalizado getCotacaoCSV - realizado chamada google api");
         log.debug("Finalizado getCotacaoCSV - realizado chamada google api : {}", sheetsValues);
         return spreadSheet;
+    }
+
+    public SpreadSheet insertData() throws HttpException {
+        log.info("Iniciando insertData operacao api :append");
+        String url = googleProperties.getUrl().concat("{spreadsheetId}/values/{sheetsName}:append");
+        // adiciona os urlParams
+        urlParams = new LinkedHashMap<>();
+        urlParams.put("spreadsheetId", googleProperties.getSpreadsheetId());
+        urlParams.put("sheetsName", googleProperties.getInsertData());
+        
+
+         // Adiciona os queryParams
+         queryParams = new LinkedHashMap<>();
+         queryParams.put("includeValuesInResponse", "true");
+         queryParams.put("insertDataOption", "INSERT_ROWS");
+         queryParams.put("responseDateTimeRenderOption", "FORMATTED_STRING");
+         queryParams.put("responseValueRenderOption", "FORMATTED_VALUE");
+         queryParams.put("valueInputOption", "RAW");
+         queryParams.put("key", googleProperties.getAppKey());
+
+         String sheetsValues = this.getRest(url, urlParams, queryParams);
+
+        
+         log.info("Finalizado insertData - realizado chamada google api");
+         log.debug("Finalizado insertData - realizado chamada google api : {}", sheetsValues);
+        return null;
     }
 
 }

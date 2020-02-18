@@ -11,7 +11,7 @@ public class GoogleProperties {
     private String spreadsheetId;
     private String ranges;
     private String appKey;
-
+    private String insertData;
 
     public String getUrl() {
         return url;
@@ -44,6 +44,15 @@ public class GoogleProperties {
     public void setAppKey(String appKey) {
         this.appKey = appKey;
     }
+
+    public String getInsertData() {
+        return insertData;
+    }
+
+    public void setInsertData(String insertData) {
+        this.insertData = insertData;
+    }
+
     
 
 }

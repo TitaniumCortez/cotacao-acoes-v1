@@ -31,11 +31,6 @@ public class HttpRestTest {
     @Test
     public void deveRetornarAsCotacoesNaPlanilha()
             throws HttpException, JsonParseException, JsonMappingException, IOException {
-        SpreadSheet spreadSheet = googleApiRepository.getCotacao();
-        assertNotNull(spreadSheet);
-        assertNotNull("value spreadsheetId", spreadSheet.getSpreadsheetId());
-        assertNotNull("value valueRanges", spreadSheet.getValueRanges());
-        List<ValueRanges> values = spreadSheet.getValueRanges();
-        assertNotNull("range", values.get(0).getRange());
+
     }
 }
